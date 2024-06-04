@@ -1,0 +1,10 @@
+.box-decoration {
+    width: 400px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 100px;
+    border-color: black;
+    margin: 2%;
+}
+
+/* TODO window size alınacak */
