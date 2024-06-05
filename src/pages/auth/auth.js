@@ -1,5 +1,5 @@
 import wall from '../../assets/wall.jpg';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './auth.css';
 import CustomTextInput from '../../components/text-input/text-input';
 import CustomButton from '../../components/button/custom-button';
@@ -18,7 +18,7 @@ function AuthPage() {
             const user = await auth.loginAction({ "email": mail, "password": password });
             if (user) {
                 setError(false);
-                navigate('/home', { state: { user } });
+                navigate('/home');
             }
             else { setError(true); }
 
@@ -40,7 +40,7 @@ function AuthPage() {
                 {error ? (<>
                     <h2>Wrong User!</h2>
                 </>) : (
-                    <h1></h1>
+                    <h1> </h1>
                 )}
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import AuthPage from './pages/auth/auth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -6,9 +6,12 @@ import HomePage from './pages/home/home';
 import AuthProvider, { useAuth } from './hooks/auth-provider';
 
 function App() {
-  const token = useAuth();
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setUser(null);
+  }, []);
   return (
-    <AuthProvider>
+    <AuthProvider value={{ user }} >
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/auth" />} />
@@ -17,8 +20,8 @@ function App() {
           <Route
             path="/home"
             element={
-              token ? (
-                <HomePage />
+              user ? (
+                <HomePage user={user} />
               ) : (
                 <Navigate to="/auth" replace />
               )

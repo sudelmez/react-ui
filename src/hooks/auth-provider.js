@@ -1,15 +1,12 @@
 import { useContext, createContext } from "react";
 import { useState } from "react";
-
+//TODO useDispatch redux
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState("");
+    // const dis = useDispacth();
 
     const loginAction = async (data) => {
-        console.log("data:");
-        console.log(JSON.stringify(data));
-        console.log(data);
         try {
             const response = await fetch('http://localhost:5273/weatherforecast/login/', {
                 method: 'POST',
@@ -32,10 +29,12 @@ const AuthProvider = ({ children }) => {
         }
     };
     const logOut = () => {
+        // dis(setUser(null));
         setUser(null);
-        setToken("");
+        console.log("log out");
+        console.log(user);
     }
-    return <AuthContext.Provider value={{ token, user, loginAction, logOut }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user, loginAction, logOut }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
