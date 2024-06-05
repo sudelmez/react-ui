@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
 
     const loginAction = async (data) => {
         try {
-            const response = await fetch('http://localhost:5273/weatherforecast/login/', {
+            const response = await fetch('http://localhost:5273/User/login/', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
