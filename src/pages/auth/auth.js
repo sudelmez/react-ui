@@ -1,5 +1,5 @@
 import wall from '../../assets/wall.jpg';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './auth.css';
 import CustomTextInput from '../../components/text-input/text-input';
 import CustomButton from '../../components/button/custom-button';

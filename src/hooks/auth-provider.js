@@ -1,14 +1,11 @@
 import { useContext, createContext } from "react";
 import { useState } from "react";
-//TODO useDispatch redux
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    // const dis = useDispacth();
-
     const loginAction = async (data) => {
         try {
-            const response = await fetch('http://localhost:5273/User/login/', {
+            const response = await fetch('http://localhost:5273/Auth/login/', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -29,7 +26,6 @@ const AuthProvider = ({ children }) => {
         }
     };
     const logOut = () => {
-        // dis(setUser(null));
         setUser(null);
         console.log("log out");
         console.log(user);
