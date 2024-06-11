@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import AuthPage from './pages/auth/auth';
+import Userpage from './pages/user/user_view';
+import AddUserPage from './pages/add_user/add_user';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/home/home';
 import AuthProvider, { useAuth } from './hooks/auth-provider';
@@ -17,6 +19,8 @@ function App() {
           <Route path="/" element={<Navigate to="/auth" />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/user" element={<Userpage />} />
+          <Route path="/addUser" element={<AddUserPage />} />
           <Route
             path="/home"
             element={

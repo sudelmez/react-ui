@@ -1,0 +1,21 @@
+.Alert {
+    background-color: yellow;
+    border: 2px solid rgb(134, 133, 133);
+    z-index: 1;
+    height: 50%;
+    width: 50%;
+    border-radius: 10%;
+    position: absolute;
+    align-items: center;
+    flex: 1;
+}
+
+.answer {
+    align-items: row;
+    flex: 1;
+    justify-content: space-around;
+}
+
+.button {
+    margin: 10%;
+}

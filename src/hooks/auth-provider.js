@@ -3,6 +3,7 @@ import { useState } from "react";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [role, setRole] = useState("");
     const loginAction = async (data) => {
         try {
             const response = await fetch('http://localhost:5273/Auth/login/', {
@@ -17,6 +18,7 @@ const AuthProvider = ({ children }) => {
                 console.log("res");
                 console.log(res);
                 if (res.user) {
+                    setRole(showRole(res.user.authorizedProducts[0]));
                     setUser(res.user);
                     return res.user;
                 }
@@ -27,10 +29,23 @@ const AuthProvider = ({ children }) => {
     };
     const logOut = () => {
         setUser(null);
+        setRole("");
         console.log("log out");
         console.log(user);
     }
-    return <AuthContext.Provider value={{ user, loginAction, logOut }}>{children}</AuthContext.Provider>;
+    const showRole = (roleId) => {
+        switch (roleId) {
+            case "1":
+                setRole("admin");
+                break;
+            case "2":
+                setRole("user");
+                break;
+            default:
+                break;
+        }
+    }
+    return <AuthContext.Provider value={{ user, loginAction, logOut, showRole, role }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
