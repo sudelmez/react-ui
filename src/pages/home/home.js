@@ -10,11 +10,10 @@ function HomePage() {
     const [load, setLoad] = useState(false);
     const { user, setUser } = auth;
     const { role, setRole } = auth;
+    const { access, setAccess } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
-    const [seeDetail, setSeeDetail] = useState(true);
-    const [delButton, setDelButton] = useState(true);
 
     const getUsers = async () => {
         try {
@@ -43,11 +42,11 @@ function HomePage() {
                     body: JSON.stringify(user)
                 });
             console.log(response);
-            window.location.reload();
         } catch (error) {
             console.log(error);
         }
     }
+
     const showAlert = () => {
         setPop(true);
     }
@@ -58,7 +57,6 @@ function HomePage() {
     const onClickNo = () => {
         setPop(false);
     }
-
     useEffect(() => {
         setLoad(false);
         getUsers();
@@ -71,37 +69,39 @@ function HomePage() {
 
     return (
         <div className='Home'>
+            {pop ? (<>
+                <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
+            </>) : (null)}
             {!load ? (<>
-                <div className='left'><h1>{user.name}</h1>
+                <div className='left'>
+                    <h1>{user.name}</h1>
                     <h1>{user.lastName}</h1>
-                    <h1>{role}</h1>
+                    <h1>{role.roleName}</h1>
                     <button onClick={handlePress}>Log Out</button>
                 </div>
-                <div className='right'>
-                    {pop ? (<>
-                        <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
-                    </>) : (null)}
-                    {users.map((userI) => {
-                        return <div key={userI.id.toString()} className='comp'> <h2 onClick={() => {
-                            if (userI.email !== user.email) { navigate('/user', { state: { user: userI } }); }
-                        }} className="item">
-                            {userI.name + " " + userI.lastName}
-                        </h2>
+                {access.seeUserList === true && (
+                    <div className='right'>
+                        {users.map((userI) => {
+                            return <div key={userI.id.toString()} className='comp'>
+                                {(userI.email !== user.email) && (
+                                    <h2 onClick={() => {
+                                        if (access.seeUserDetail === true) { navigate('/user', { state: { user: userI } }); }
+                                    }} className="item">
+                                        {userI.name + " " + userI.lastName}
+                                    </h2>)}
+                                {(access.delUser === true && (userI.email !== user.email)) &&
+                                    (<button onClick={() => {
+                                        showAlert();
+                                        setselectedUser(userI);
+                                    }}>delete</button>)} </div>;
+                        })}
+                        {access.addUser === true && (
                             <button onClick={() => {
-                                if (userI.email !== user.email) {
-                                    showAlert();
-                                    setselectedUser(userI);
-                                }
-                                //TODO düzenlenecek
-                            }}>delete</button>
-                        </div>;
-                    }
-
-                    )}
-                    <button onClick={() => {
-                        navigate('/addUser');
-                    }} className='adduser'>Add User</button>
-                </div>
+                                navigate('/addUser');
+                            }} className='adduser'>Add User</button>
+                        )}
+                    </div>
+                )}
             </>) : (
                 <h1>Loading...</h1>
             )}

@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import AuthPage from './pages/auth/auth';
 import Userpage from './pages/user/user_view';
 import AddUserPage from './pages/add_user/add_user';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/home/home';
-import AuthProvider, { useAuth } from './hooks/auth-provider';
+import AuthProvider from './hooks/auth-provider';
 
 function App() {
   const [user, setUser] = useState();
-  useEffect(() => {
-    setUser(null);
-  }, []);
   return (
     <AuthProvider value={{ user }} >
       <Router>

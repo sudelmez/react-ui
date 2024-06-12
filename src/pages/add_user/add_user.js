@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './add_user.css'
 import CustomTextInput from '../../components/text_input/text_input';
 import CustomButton from '../../components/button/custom-button';
+import { useNavigate } from 'react-router-dom';
 function AddUserPage() {
     const [UId, setUId] = useState('');
     const [name, setname] = useState('');
@@ -9,13 +10,9 @@ function AddUserPage() {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
     const [client, setclient] = useState('');
+    const [role, setrole] = useState('');
+    const navigate = useNavigate();
     const handleSave = async () => {
-        console.log(name);
-        console.log(lastname);
-        console.log(UId);
-        console.log(email);
-        console.log(password);
-        console.log(client);
         var data = {
             "id": {},
             "uId": UId,
@@ -25,7 +22,7 @@ function AddUserPage() {
             "lastName": lastname,
             "token": "12345",
             "client": client,
-            "authorizedProducts": [""],
+            "authorizedProducts": [role],
             "createdDate": Date.now
         };
         try {
@@ -36,10 +33,8 @@ function AddUserPage() {
                 }, body: JSON.stringify(data)
             });
             if (response.status === 200) {
-                const res = await response.json();
-                if (res) {
-                    return res;
-                }
+                navigate('/home');
+                return;
             }
         } catch (error) {
             console.log(error);
@@ -53,6 +48,7 @@ function AddUserPage() {
             <CustomTextInput hint={"Email"} input={email} setInputValue={setemail}></CustomTextInput>
             <CustomTextInput hint={"Password"} input={password} setInputValue={setpassword}></CustomTextInput>
             <CustomTextInput hint={"Client"} input={client} setInputValue={setclient}></CustomTextInput>
+            <CustomTextInput hint={"Role 1 or 2"} input={role} setInputValue={setrole}></CustomTextInput>
             <CustomButton title={"save"} handlePress={handleSave}></CustomButton>
         </div>
 
