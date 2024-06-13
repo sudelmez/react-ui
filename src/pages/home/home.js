@@ -11,13 +11,11 @@ function HomePage() {
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
     const { user, setUser } = auth;
-    const { role, setRole } = auth;
     const { access, setAccess } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
     const { getUsers, delItem } = UserProvider();
-    const [edit, setEdit] = useState(false);
 
     const showAlert = () => {
         setPop(true);
@@ -43,41 +41,37 @@ function HomePage() {
         await auth.logOut();
         navigate('/auth');
     }
-
     return (
         <div className='Home'>
-            <NavBar name={user.name}></NavBar>
+            <NavBar name={user.name} handlePress={() => handlePress()}></NavBar>
             {pop ? (<>
                 <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
             {!load ? (<>
                 {access.seeUserList === true && (
                     <div className='colItems'>
-                        <h3 onClick={() => {
-                            setEdit(!edit);
-                        }} className='editButton'>Edit</h3>
                         <table>
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Last Name</th>
-                                <th>Role</th>
-                                {edit &&
-                                    (<th>Editing...</th>)
-                                }
+                                <th>Products</th>
+                                <th>Client</th>
+                                <th>Token</th>
                             </tr>
                             {users.map((u, index) => {
                                 return <tr>
                                     <td>{index + 1}</td>
                                     <td>{u.name}</td>
                                     <td>{u.lastName}</td>
-                                    <td>{role.name}</td>
-                                    {edit &&
-                                        (<td onClick={() => {
-                                            showAlert();
-                                            setselectedUser(u);
-                                        }}>Delete</td>)
-                                    }
+                                    <td>{u.authorizedProducts}</td>
+                                    <td>{u.client}</td>
+                                    <td>{u.uId}</td>
+                                    <td className='delButton'>edit</td>
+                                    <td className='delButton' onClick={() => {
+                                        setselectedUser(u);
+                                        showAlert();
+                                    }}>delete</td>
                                 </tr>
                             })}
                         </table>

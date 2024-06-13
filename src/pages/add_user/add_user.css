@@ -1,1 +1,6 @@
-.AddUser {}
+.AddUser {
+    margin-top: 10%;
+    flex: 1;
+    position: absolute;
+    margin-left: 35%;
+}

@@ -55,8 +55,8 @@ const AuthProvider = ({ children }) => {
                 console.log("res");
                 console.log(res);
                 setUser(res.user);
-                await getRole(res.user.authorizedProducts[0]);
-                await getAcces(res.user.authorizedProducts[0]);
+                await getRole(res.user.roleId);
+                await getAcces(res.user.roleId);
                 return res.user;
             }
         } catch (error) {

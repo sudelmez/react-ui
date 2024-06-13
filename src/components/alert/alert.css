@@ -1,21 +1,26 @@
 .Alert {
-    background-color: yellow;
-    border: 2px solid rgb(134, 133, 133);
+    background-color: rgb(193, 223, 245);
+    border: 1px solid rgb(102, 136, 161);
     z-index: 1;
     height: 50%;
+    margin-left: 10%;
     width: 50%;
-    border-radius: 10%;
+    border-radius: 20px;
     position: absolute;
-    align-items: center;
     flex: 1;
+    box-shadow: 0px 0px 100px rgb(102, 136, 161);
 }
 
-.answer {
-    align-items: row;
-    flex: 1;
-    justify-content: space-around;
+.text {
+    margin-left: 10%;
+    margin-top: 10%;
 }
 
 .button {
     margin: 10%;
+    margin-left: 20%;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
 }

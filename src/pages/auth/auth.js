@@ -13,6 +13,7 @@ function AuthPage() {
     const [password, setpassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState(false);
+    const { user } = useAuth();
     const handlePress = async () => {
         try {
             const user = await auth.loginAction({ "email": mail, "password": password });
@@ -28,7 +29,11 @@ function AuthPage() {
     }
     return (
         <div className='Auth'>
-            <div className="navbar-app"><NavBar></NavBar></div>
+            {user && (
+                <div className="navbar-app">
+                    <NavBar></NavBar>
+                </div>
+            )}
             <div className="Auth-left">
                 <img className='image' alt='' src={wall} />
             </div>

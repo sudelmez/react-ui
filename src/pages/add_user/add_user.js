@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './add_user.css'
 import CustomTextInput from '../../components/text_input/text_input';
 import CustomButton from '../../components/button/custom-button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import NavBar from '../../components/navbar/navbar';
 function AddUserPage() {
-    const [UId, setUId] = useState('');
     const [name, setname] = useState('');
     const [lastname, setlastname] = useState('');
     const [email, setemail] = useState('');
@@ -12,17 +12,6 @@ function AddUserPage() {
     const [client, setclient] = useState('');
     const [role, setrole] = useState('');
     const navigate = useNavigate();
-    const location = useLocation();
-    const { users } = location.state || {};
-    const generateUId = () => {
-        var num = users.length + 1;
-        users.array.forEach(element => {
-            if (element.uId === num) {
-                num += 1;
-            }
-        });
-        return num;
-    }
     const handleSave = async () => {
         var data = {
             "id": {},
@@ -53,7 +42,7 @@ function AddUserPage() {
     }
     return (
         <div className='AddUser'>
-            {/* <CustomTextInput hint={"UId"} input={UId} setInputValue={setUId} ></CustomTextInput> */}
+            <NavBar></NavBar>
             <CustomTextInput hint={"Name"} input={name} setInputValue={setname} ></CustomTextInput>
             <CustomTextInput hint={"Last Name"} input={lastname} setInputValue={setlastname} ></CustomTextInput>
             <CustomTextInput hint={"Email"} input={email} setInputValue={setemail}></CustomTextInput>
