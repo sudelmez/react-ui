@@ -15,7 +15,7 @@ function HomePage() {
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
-    const { getUsers, delItem } = UserProvider();
+    const { getUsers, delItem, editItem } = UserProvider();
 
     const showAlert = () => {
         setPop(true);

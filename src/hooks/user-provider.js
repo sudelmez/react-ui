@@ -44,7 +44,28 @@ const UserProvider = () => {
             console.log(error);
         }
     }
-    return { getUsers, delItem };
+    const editItem = async (user) => {
+        try {
+            // const response = await fetch('http://localhost:5273/UserList/delete',
+            //     {
+            //         method: 'POST', headers: {
+            //             "Content-Type": "application/json",
+            //             "accept": "text/plain"
+            //         },
+            //         body: JSON.stringify(user)
+            //     });
+            // if (response.status === 200) {
+            //     const res = await response.json();
+            //     if (res) {
+            //         return res;
+            //     }
+            // }
+            // console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    return { getUsers, delItem, editItem };
 }
 
 export default UserProvider;
