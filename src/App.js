@@ -5,7 +5,7 @@ import Userpage from './pages/user/user_view';
 import AddUserPage from './pages/add_user/add_user';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/home/home';
-import AuthProvider from './hooks/auth-provider';
+import AuthProvider, { useAuth } from './hooks/auth-provider';
 
 function App() {
   const [user, setUser] = useState();

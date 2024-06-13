@@ -1,21 +1,69 @@
 .Home {
-    align-items: center;
     flex: 1;
-    margin: 20%;
-    justify-content: row;
+    margin-left: 15%;
+    margin-right: 20%;
+    margin-top: 10%;
     display: flex;
-    flex-direction: row;
-    flex: 1;
-    justify-content: center;
-}
-
-.left {
     flex: 1;
 }
 
-.right {
-    flex: 3;
-    align-items: end;
-    margin-top: 20%;
-    margin-left: 50%;
+.item {
+    margin-top: 10px;
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+.buttonDel {
+    margin-top: 15%;
+    margin-bottom: 50%;
+    background-color: antiquewhite;
+}
+
+.buttonLogout {
+    background-color: rgb(138, 154, 176);
+}
+
+table {
+    border: 2px solid rgb(102, 136, 161);
+    width: 1000px;
+    height: 300px;
+    border-radius: 20px;
+    background-color: rgba(219, 236, 248, 0.584);
+    box-shadow: 0px 0px 2px rgb(102, 136, 161);
+    cursor: default;
+}
+
+th {
+    border-bottom: 1px solid rgb(102, 136, 161);
+    background-color: rgb(102, 136, 161);
+    padding: 10px;
+}
+
+th:first-child {
+    background-color: rgb(102, 136, 161);
+    border-top-left-radius: 18px;
+}
+
+th:last-child {
+    background-color: rgb(102, 136, 161);
+    border-top-right-radius: 18px;
+}
+
+td {
+    text-align: center;
+    background-color: rgb(205, 221, 231);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.editButton {
+    align-self: flex-end;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.colItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

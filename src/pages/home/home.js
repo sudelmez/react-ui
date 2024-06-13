@@ -3,6 +3,8 @@ import './home.css';
 import { useAuth } from '../../hooks/auth-provider';
 import { useNavigate } from 'react-router-dom';
 import AlertShow from '../../components/alert/alert';
+import NavBar from '../../components/navbar/navbar';
+import UserProvider from '../../hooks/user-provider';
 
 function HomePage() {
     const auth = useAuth();
@@ -14,38 +16,8 @@ function HomePage() {
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
-
-    const getUsers = async () => {
-        try {
-            const response = await fetch('http://localhost:5273/UserList/get', {
-                method: 'GET', headers: {
-                    "accept": "text/plain"
-                },
-            });
-            if (response.status === 200) {
-                const res = await response.json();
-                if (res) {
-                    setUsers(res);
-                    return res;
-                }
-            }
-        } catch (error) { }
-    }
-    const delItem = (user) => {
-        try {
-            const response = fetch('http://localhost:5273/UserList/delete',
-                {
-                    method: 'POST', headers: {
-                        "Content-Type": "application/json",
-                        "accept": "text/plain"
-                    },
-                    body: JSON.stringify(user)
-                });
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const { getUsers, delItem } = UserProvider();
+    const [edit, setEdit] = useState(false);
 
     const showAlert = () => {
         setPop(true);
@@ -58,9 +30,14 @@ function HomePage() {
         setPop(false);
     }
     useEffect(() => {
+        setLoad(true);
+        fetchData();
+        async function fetchData() {
+            const usersData = await getUsers();
+            setUsers(usersData);
+        }
         setLoad(false);
-        getUsers();
-    }, []);
+    }, [load]);
     const handlePress = async () => {
         setLoad(true);
         await auth.logOut();
@@ -69,15 +46,52 @@ function HomePage() {
 
     return (
         <div className='Home'>
+            <NavBar name={user.name}></NavBar>
             {pop ? (<>
                 <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
             {!load ? (<>
-                <div className='left'>
-                    <h1>{user.name}</h1>
-                    <h1>{user.lastName}</h1>
-                    <h1>{role.roleName}</h1>
-                    <button onClick={handlePress}>Log Out</button>
+                {access.seeUserList === true && (
+                    <div className='colItems'>
+                        <h3 onClick={() => {
+                            setEdit(!edit);
+                        }} className='editButton'>Edit</h3>
+                        <table>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>Role</th>
+                                {edit &&
+                                    (<th>Editing...</th>)
+                                }
+                            </tr>
+                            {users.map((u, index) => {
+                                return <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{u.name}</td>
+                                    <td>{u.lastName}</td>
+                                    <td>{role.name}</td>
+                                    {edit &&
+                                        (<td onClick={() => {
+                                            showAlert();
+                                            setselectedUser(u);
+                                        }}>Delete</td>)
+                                    }
+                                </tr>
+                            })}
+                        </table>
+                    </div>
+                )}
+                {/* <div className='left'>
+                    <div className='container'>
+                        <h1>{user.name}</h1>
+                        <h1>{user.lastName}</h1>
+                        <h1>role: {role.roleName}</h1>
+                    </div>
+                    <button className='buttonLogout' onClick={handlePress}>Log Out</button>
+                </div>
+                <div className='middle'>
                 </div>
                 {access.seeUserList === true && (
                     <div className='right'>
@@ -95,19 +109,18 @@ function HomePage() {
                                         setselectedUser(userI);
                                     }}>delete</button>)} </div>;
                         })}
+                        <h2 className='item'></h2>
                         {access.addUser === true && (
                             <button onClick={() => {
-                                navigate('/addUser');
-                            }} className='adduser'>Add User</button>
-                        )}
-                    </div>
-                )}
+                                navigate('/addUser', { state: { users: users } });
+                            }} className='buttonDel'>Add User</button>
+                        )}</div>
+                )} */}
             </>) : (
                 <h1>Loading...</h1>
             )}
+
         </div>
-
-
     );
 }
 

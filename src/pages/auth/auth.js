@@ -1,7 +1,7 @@
 import wall from '../../assets/wall.jpg';
 import React, { useState } from 'react';
 import './auth.css';
-import CustomTextInput from '../../components/text-input/text-input';
+import CustomTextInput from '../../components/text_input/text_input';
 import CustomButton from '../../components/button/custom-button';
 import NavBar from '../../components/navbar/navbar';
 import { useNavigate } from 'react-router-dom';
