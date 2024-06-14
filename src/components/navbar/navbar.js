@@ -6,14 +6,13 @@ import { useAuth } from "../../hooks/auth-provider";
 
 function NavBar(handlePress) {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, access } = useAuth();
     return (
         <div className="bar">
             <div className="logo-divider">
                 <img alt="logo" src={logo} className="logo" />
                 <h2 onClick={() => navigate('/home')} className="drawerItem">Home</h2>
-                <h2 onClick={() => { navigate('/roles') }} className="drawerItem">Roles</h2>
-                <h2 onClick={() => { navigate('/addUser', { state: { user: {} } }) }} className="drawerItem">Add User</h2>
+                {access.seeUserDetail && (<h2 onClick={() => { navigate('/addUser', { state: { user: {} } }) }} className="drawerItem">Add User</h2>)}
             </div>
             <div className="socialIcons">
                 <div>

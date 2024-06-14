@@ -44,7 +44,7 @@ function HomePage() {
     }
     return (
         <div className='Home'>
-            <NavBar name={user.name} handlePress={() => handlePress()}></NavBar>
+            <NavBar handlePress={() => handlePress()}></NavBar>
             {pop ? (<>
                 <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
@@ -62,19 +62,19 @@ function HomePage() {
                             </tr>
                             {users.map((u, index) => {
                                 return <tr>
-                                    <td>{index + 1}</td>
+                                    <td className='detailNav' onClick={() => { access.seeUserDetail && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
                                     <td>{u.name}</td>
                                     <td>{u.lastName}</td>
                                     <td>{u.authorizedProducts}</td>
                                     <td>{u.client}</td>
                                     <td>{u.uId}</td>
-                                    <td className='delButton' onClick={() => {
+                                    {access.seeUserDetail && (<td className='delButton' onClick={() => {
                                         navigate('/addUser', { state: { user: u, isEdit: true } })
-                                    }}>edit</td>
-                                    <td className='delButton' onClick={() => {
+                                    }}>edit</td>)}
+                                    {access.seeUserDetail && (<td className='delButton' onClick={() => {
                                         setselectedUser(u);
                                         showAlert();
-                                    }}>delete</td>
+                                    }}>delete</td>)}
                                 </tr>
                             })}
                         </table>
