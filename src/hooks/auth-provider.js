@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
                 console.log("accrole");
                 console.log(accrole);
                 setAccess(accrole);
+                return accrole;
             }
         } catch (error) {
             console.log("Access error:", error);
@@ -36,6 +37,7 @@ const AuthProvider = ({ children }) => {
                 setRole(resrole);
                 console.log("resrole");
                 console.log(resrole);
+                return resrole;
             }
         } catch (error) {
             console.error("Role error:", error);

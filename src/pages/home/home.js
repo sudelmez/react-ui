@@ -10,7 +10,6 @@ function HomePage() {
     const auth = useAuth();
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
-    const { user, setUser } = auth;
     const { access, setAccess } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
@@ -54,17 +53,19 @@ function HomePage() {
                             <th>Products</th>
                             <th>Client</th>
                             <th>Token</th>
-                            <th>Settings</th>
+                            {access.delUser && (
+                                <th>Settings</th>
+                            )}
                         </tr>
                         {users.map((u, index) => {
                             return <tr>
-                                <td className='detailNav' onClick={() => { access.seeUserDetail && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
+                                <td className='detailNav' onClick={() => { access.seeUserDetail === true && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
                                 <td>{u.name}</td>
                                 <td>{u.lastName}</td>
                                 <td>{u.authorizedProducts}</td>
                                 <td>{u.client}</td>
                                 <td>{u.uId}</td>
-                                <td>
+                                {access.delUser === true && <td>
                                     <td className='delButton' onClick={() => {
                                         navigate('/addUser', { state: { user: u, isEdit: true } })
                                     }}>edit</td>
@@ -72,7 +73,7 @@ function HomePage() {
                                         setselectedUser(u);
                                         showAlert();
                                     }}>delete</td>
-                                </td>
+                                </td>}
 
                             </tr>
                         })}

@@ -13,11 +13,11 @@ function AuthPage() {
     const [password, setpassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-    const { user } = useAuth();
+    const { user, role, access } = useAuth();
     const handlePress = async () => {
         try {
             const user = await auth.loginAction({ "email": mail, "password": password });
-            if (user) {
+            if (user != null) {
                 setError(false);
                 navigate('/home');
             }
@@ -29,11 +29,6 @@ function AuthPage() {
     }
     return (
         <div className='Auth'>
-            {user && (
-                <div className="navbar-app">
-                    <NavBar></NavBar>
-                </div>
-            )}
             <div className="Auth-left">
                 <img className='image' alt='' src={wall} />
             </div>

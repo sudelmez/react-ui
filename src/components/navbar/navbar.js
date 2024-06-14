@@ -13,7 +13,7 @@ function NavBar() {
             <div className="logo-divider">
                 <img alt="logo" src={logo} className="logo" />
                 <h2 onClick={() => navigate('/home')} className="drawerItem">Home</h2>
-                <h2 onClick={() => { navigate('/addUser', { state: { user: {} } }) }} className="drawerItem">Add User</h2>
+                {access.addUser && (<h2 onClick={() => { navigate('/addUser', { state: { user: {} } }) }} className="drawerItem">Add User</h2>)}
             </div>
             <div className="socialIcons">
                 <h1 onClick={() => { navigate('/user', { state: { user: user } }) }} className="drawerItem" >
