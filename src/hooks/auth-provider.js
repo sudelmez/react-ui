@@ -1,8 +1,10 @@
-import { useContext, createContext } from "react";
+import { useContext, createContext, useMemo } from "react";
 import { useState } from "react";
+import { useLocalStorage } from "./local-storage";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
+    const [user, setUser] = useLocalStorage("user", null);
     const [role, setRole] = useState("");
     const [access, setAccess] = useState(null);
     const getAcces = async (id) => {
@@ -72,8 +74,17 @@ const AuthProvider = ({ children }) => {
         console.log("log out");
         console.log(user);
     }
-
-    return <AuthContext.Provider value={{ user, loginAction, logOut, role, access, getAcces, getRole }}>{children}</AuthContext.Provider>;
+    const value = useMemo(
+        () => ({
+            user,
+            role,
+            access,
+            loginAction,
+            logOut, getAcces, getRole
+        }),
+        [user]
+    );
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

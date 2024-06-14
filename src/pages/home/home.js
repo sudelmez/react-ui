@@ -10,16 +10,24 @@ function HomePage() {
     const auth = useAuth();
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
-    const { access, setAccess } = auth;
+    const { access } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
+    const [logout, setlogout] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
     const { getUsers, delItem } = UserProvider();
 
     const showAlert = () => {
         setPop(true);
     }
-    const onClickYes = () => {
+    const onClickYes = async () => {
+        if (logout === true) {
+            setLoad(!load);
+            await auth.logOut();
+            navigate(`/`);
+            setPop(false);
+            setlogout(false);
+        }
         setLoad(!load);
         delItem(selectedUser);
         setPop(false);
@@ -39,9 +47,9 @@ function HomePage() {
 
     return (
         <div className='Home'>
-            <NavBar ></NavBar>
+            <NavBar  ></NavBar>
             {pop ? (<>
-                <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
+                <AlertShow text={logout ? "Are you sure you want to log out?" : "Are you sure you want to delete?"} onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
             {!load ? (<>
                 <div className='colItems'>
