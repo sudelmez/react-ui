@@ -21,9 +21,9 @@ function HomePage() {
         setPop(true);
     }
     const onClickYes = () => {
+        setLoad(!load);
         delItem(selectedUser);
         setPop(false);
-        setLoad(true);
     }
     const onClickNo = () => {
         setPop(false);
@@ -49,37 +49,35 @@ function HomePage() {
                 <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
             {!load ? (<>
-                {access.seeUserList === true && (
-                    <div className='colItems'>
-                        <table>
-                            <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Last Name</th>
-                                <th>Products</th>
-                                <th>Client</th>
-                                <th>Token</th>
+                <div className='colItems'>
+                    <table>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Last Name</th>
+                            <th>Products</th>
+                            <th>Client</th>
+                            <th>Token</th>
+                        </tr>
+                        {users.map((u, index) => {
+                            return <tr>
+                                <td className='detailNav' onClick={() => { access.seeUserDetail && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
+                                <td>{u.name}</td>
+                                <td>{u.lastName}</td>
+                                <td>{u.authorizedProducts}</td>
+                                <td>{u.client}</td>
+                                <td>{u.uId}</td>
+                                <td className='delButton' onClick={() => {
+                                    navigate('/addUser', { state: { user: u, isEdit: true } })
+                                }}>edit</td>
+                                <td className='delButton' onClick={() => {
+                                    setselectedUser(u);
+                                    showAlert();
+                                }}>delete</td>
                             </tr>
-                            {users.map((u, index) => {
-                                return <tr>
-                                    <td className='detailNav' onClick={() => { access.seeUserDetail && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
-                                    <td>{u.name}</td>
-                                    <td>{u.lastName}</td>
-                                    <td>{u.authorizedProducts}</td>
-                                    <td>{u.client}</td>
-                                    <td>{u.uId}</td>
-                                    {access.seeUserDetail && (<td className='delButton' onClick={() => {
-                                        navigate('/addUser', { state: { user: u, isEdit: true } })
-                                    }}>edit</td>)}
-                                    {access.seeUserDetail && (<td className='delButton' onClick={() => {
-                                        setselectedUser(u);
-                                        showAlert();
-                                    }}>delete</td>)}
-                                </tr>
-                            })}
-                        </table>
-                    </div>
-                )}
+                        })}
+                    </table>
+                </div>
             </>) : (
                 <h1>Loading...</h1>
             )}

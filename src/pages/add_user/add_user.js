@@ -14,6 +14,10 @@ function AddUserPage() {
     const [authorizedProducts, setauthorizedProducts] = useState(user.authorizedProducts ?? '');
     const navigate = useNavigate();
     const { editItem, addUser } = UserProvider();
+
+    const generateList = (products) => {
+        return products.split(',');
+    }
     const handleSave = async () => {
         var data = {
             "id": {},
@@ -21,11 +25,20 @@ function AddUserPage() {
             "name": name,
             "lastName": lastname,
             "client": client,
-            "authorizedProducts": [authorizedProducts],
+            "authorizedProducts": generateList(authorizedProducts),
+            "createdDate": Date.now
+        };
+        var dataUpdate = {
+            "id": {},
+            "uId": user.uId ?? "",
+            "name": name,
+            "lastName": lastname,
+            "client": client,
+            "authorizedProducts": generateList(authorizedProducts),
             "createdDate": Date.now
         };
         if (isEdit === true) {
-            editItem(data).then(() => {
+            editItem(dataUpdate).then(() => {
                 navigate('/home');
             });
         }
@@ -35,6 +48,7 @@ function AddUserPage() {
             });
         }
     }
+
     useEffect(() => {
         console.log(user);
     },);
@@ -44,7 +58,7 @@ function AddUserPage() {
             <CustomTextInput hint={"Name"} input={name} setInputValue={setname} ></CustomTextInput>
             <CustomTextInput hint={"Last Name"} input={lastname} setInputValue={setlastname} ></CustomTextInput>
             <CustomTextInput hint={"Client"} input={client} setInputValue={setclient}></CustomTextInput>
-            <CustomTextInput hint={"Authorized Products"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
+            <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
             <CustomButton title={"save"} handlePress={handleSave}></CustomButton>
         </div>
 
