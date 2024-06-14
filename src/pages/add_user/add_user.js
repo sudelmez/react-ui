@@ -16,7 +16,10 @@ function AddUserPage() {
     const { editItem, addUser } = UserProvider();
 
     const generateList = (products) => {
-        return products.split(',');
+        if (user.authorizedProducts !== products) {
+            return products.split(',');
+        }
+        return products;
     }
     const handleSave = async () => {
         var data = {
