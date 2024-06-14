@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { useAuth } from "../../hooks/auth-provider";
 
-function NavBar(userName, handlePress) {
+function NavBar(handlePress) {
     const navigate = useNavigate();
     const { user } = useAuth();
     return (
@@ -13,7 +13,7 @@ function NavBar(userName, handlePress) {
                 <img alt="logo" src={logo} className="logo" />
                 <h2 onClick={() => navigate('/home')} className="drawerItem">Home</h2>
                 <h2 onClick={() => { navigate('/roles') }} className="drawerItem">Roles</h2>
-                <h2 onClick={() => { navigate('/addUser') }} className="drawerItem">Add User</h2>
+                <h2 onClick={() => { navigate('/addUser', { state: { user: {} } }) }} className="drawerItem">Add User</h2>
             </div>
             <div className="socialIcons">
                 <div>

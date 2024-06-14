@@ -15,7 +15,7 @@ function HomePage() {
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
-    const { getUsers, delItem, editItem } = UserProvider();
+    const { getUsers, delItem } = UserProvider();
 
     const showAlert = () => {
         setPop(true);
@@ -23,6 +23,7 @@ function HomePage() {
     const onClickYes = () => {
         delItem(selectedUser);
         setPop(false);
+        setLoad(true);
     }
     const onClickNo = () => {
         setPop(false);
@@ -67,7 +68,9 @@ function HomePage() {
                                     <td>{u.authorizedProducts}</td>
                                     <td>{u.client}</td>
                                     <td>{u.uId}</td>
-                                    <td className='delButton'>edit</td>
+                                    <td className='delButton' onClick={() => {
+                                        navigate('/addUser', { state: { user: u, isEdit: true } })
+                                    }}>edit</td>
                                     <td className='delButton' onClick={() => {
                                         setselectedUser(u);
                                         showAlert();
@@ -77,39 +80,6 @@ function HomePage() {
                         </table>
                     </div>
                 )}
-                {/* <div className='left'>
-                    <div className='container'>
-                        <h1>{user.name}</h1>
-                        <h1>{user.lastName}</h1>
-                        <h1>role: {role.roleName}</h1>
-                    </div>
-                    <button className='buttonLogout' onClick={handlePress}>Log Out</button>
-                </div>
-                <div className='middle'>
-                </div>
-                {access.seeUserList === true && (
-                    <div className='right'>
-                        {users.map((userI) => {
-                            return <div key={userI.id.toString()} className='comp'>
-                                {(userI.email !== user.email) && (
-                                    <h2 onClick={() => {
-                                        if (access.seeUserDetail === true) { navigate('/user', { state: { user: userI } }); }
-                                    }} className="item">
-                                        {userI.name + " " + userI.lastName}
-                                    </h2>)}
-                                {(access.delUser === true && (userI.email !== user.email)) &&
-                                    (<button onClick={() => {
-                                        showAlert();
-                                        setselectedUser(userI);
-                                    }}>delete</button>)} </div>;
-                        })}
-                        <h2 className='item'></h2>
-                        {access.addUser === true && (
-                            <button onClick={() => {
-                                navigate('/addUser', { state: { users: users } });
-                            }} className='buttonDel'>Add User</button>
-                        )}</div>
-                )} */}
             </>) : (
                 <h1>Loading...</h1>
             )}
