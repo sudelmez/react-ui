@@ -37,14 +37,10 @@ function HomePage() {
         }
         setLoad(false);
     }, [load]);
-    const handlePress = async () => {
-        setLoad(true);
-        await auth.logOut();
-        navigate('/auth');
-    }
+
     return (
         <div className='Home'>
-            <NavBar handlePress={() => handlePress()}></NavBar>
+            <NavBar ></NavBar>
             {pop ? (<>
                 <AlertShow onClickedYes={onClickYes} onClickedNo={onClickNo} ></AlertShow>
             </>) : (null)}
@@ -58,6 +54,7 @@ function HomePage() {
                             <th>Products</th>
                             <th>Client</th>
                             <th>Token</th>
+                            <th>Settings</th>
                         </tr>
                         {users.map((u, index) => {
                             return <tr>
@@ -67,13 +64,16 @@ function HomePage() {
                                 <td>{u.authorizedProducts}</td>
                                 <td>{u.client}</td>
                                 <td>{u.uId}</td>
-                                <td className='delButton' onClick={() => {
-                                    navigate('/addUser', { state: { user: u, isEdit: true } })
-                                }}>edit</td>
-                                <td className='delButton' onClick={() => {
-                                    setselectedUser(u);
-                                    showAlert();
-                                }}>delete</td>
+                                <td>
+                                    <td className='delButton' onClick={() => {
+                                        navigate('/addUser', { state: { user: u, isEdit: true } })
+                                    }}>edit</td>
+                                    <td className='delButton' onClick={() => {
+                                        setselectedUser(u);
+                                        showAlert();
+                                    }}>delete</td>
+                                </td>
+
                             </tr>
                         })}
                     </table>

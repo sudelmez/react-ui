@@ -35,6 +35,7 @@ th {
 th:first-child {
     background-color: rgb(102, 136, 161);
     border-top-left-radius: 18px;
+    width: 20%;
 }
 
 th:last-child {
@@ -63,6 +64,7 @@ td {
     flex-direction: column;
     align-items: center;
 }
-.detailNav{
+
+.detailNav {
     cursor: pointer;
 }

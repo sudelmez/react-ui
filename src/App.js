@@ -6,8 +6,6 @@ import AddUserPage from './pages/add_user/add_user';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/home/home';
 import AuthProvider from './hooks/auth-provider';
-import RolesPage from './pages/roles/roles_view';
-import Profile from './pages/profile/profile';
 
 function App() {
   const [user, setUser] = useState();
@@ -20,8 +18,6 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/user" element={<Userpage />} />
           <Route path="/addUser" element={<AddUserPage />} />
-          <Route path="/roles" element={<RolesPage />} />
-          <Route path="/profile" element={<Profile />} />
           <Route
             path="/home"
             element={
