@@ -15,6 +15,7 @@ function AddUserPage() {
     const navigate = useNavigate();
     const { editItem, addUser } = UserProvider();
     const [message, setMessage] = useState(false);
+    const [butColor, setbutColor] = useState(false);
     const [messageTitle, setMessageTitle] = useState("");
     const updates = [];
 
@@ -90,8 +91,12 @@ function AddUserPage() {
     }
 
     useEffect(() => {
-        console.log(user);
-    },);
+        if (name && lastname && client && authorizedProducts) {
+            setbutColor(true);
+        } else {
+            setbutColor(false);
+        }
+    }, [name, lastname, client, authorizedProducts]);
     return (
         <div className='AddUser'>
             <NavBar></NavBar>
@@ -101,7 +106,7 @@ function AddUserPage() {
             <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
             <div className='buttons'>
                 <CustomButton title={"go back"} handlePress={() => { navigate('/home') }}></CustomButton>
-                <CustomButton title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "" && authorizedProducts !== "") ? handleSave : () => { }}></CustomButton>
+                <CustomButton color={butColor} title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "" && authorizedProducts !== "") ? handleSave : () => { }}></CustomButton>
             </div>
             <h1>{messageTitle}</h1>
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import './custom-button.css';
 
-export default function CustomButton({ title, handlePress }) {
+export default function CustomButton({ title, handlePress, color = true }) {
     const buttonStyle = {
-        backgroundColor: 'green',
+        backgroundColor: color ? 'green' : 'gray',
         margin: '20px',
         padding: '10px 20px',
         border: 'none',
