@@ -19,9 +19,12 @@ function HomePage() {
     const showAlert = () => {
         setPop(true);
     }
-    const onClickYes = () => {
+    const onClickYes = async () => {
         setLoad(!load);
-        delItem(selectedUser);
+        const success = await delItem(selectedUser);
+        if (success) {
+            setUsers(users.filter(user => user.uId !== selectedUser.uId));
+        }
         setPop(false);
     }
     const onClickNo = () => {

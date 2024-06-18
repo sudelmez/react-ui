@@ -25,10 +25,7 @@ const UserProvider = () => {
                     body: JSON.stringify(user)
                 });
             if (response.status === 200) {
-                const res = await response.json();
-                if (res) {
-                    return res;
-                }
+                return true;
             }
             console.log(response);
         } catch (error) {

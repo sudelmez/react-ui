@@ -1,6 +1,14 @@
 .AddUser {
-    margin-top: 10%;
-    flex: 1;
-    position: absolute;
-    margin-left: 35%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }

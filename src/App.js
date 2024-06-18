@@ -15,17 +15,18 @@ function App() {
       <Routes>
         {!user ? (
           <>
-            <Route path="*" element={<Navigate to="/notFound" />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/notFound" element={<NotFoundView />} />
+            <Route path="*" element={<Navigate to="/auth" />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/auth" element={<AuthPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/user" element={<Userpage />} />
             <Route path="/addUser" element={<AddUserPage />} />
+            <Route path="/notFound" element={<NotFoundView />} />
+            <Route path="*" element={<Navigate to="/notFound" />} />
           </>
         )}
       </Routes>

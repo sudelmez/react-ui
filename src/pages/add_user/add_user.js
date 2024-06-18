@@ -14,6 +14,9 @@ function AddUserPage() {
     const [authorizedProducts, setauthorizedProducts] = useState(user.authorizedProducts ?? '');
     const navigate = useNavigate();
     const { editItem, addUser } = UserProvider();
+    const [message, setMessage] = useState(false);
+    const [messageTitle, setMessageTitle] = useState("");
+    const updates = [];
 
     const generateList = (products) => {
         if (user.authorizedProducts !== products) {
@@ -21,6 +24,7 @@ function AddUserPage() {
         }
         return products;
     }
+
     const handleSave = async () => {
         var data = {
             "id": {},
@@ -41,14 +45,47 @@ function AddUserPage() {
             "createdDate": Date.now
         };
         if (isEdit === true) {
-            editItem(dataUpdate).then(() => {
-                navigate('/home');
-            });
+            if (user.name !== name) {
+                updates.push(" name ");
+            }
+            if (user.lastName !== lastname) {
+                updates.push(" last name ");
+            }
+            if (user.client !== client) {
+                updates.push(" client ");
+            }
+            if (user.authorizedProducts !== authorizedProducts) {
+                updates.push(" authorized products ");
+            }
+            else { setMessageTitle("") }
+            var res = await editItem(dataUpdate);
+            if (res.status === 200) {
+                setMessage(true);
+                setMessageTitle(updates + "are updated.");
+                console.log("başarılı");
+                setTimeout(() => {
+                    navigate('/home');
+                }, 3000);
+            }
+            else {
+                console.log("başarısız");
+            }
+            setMessage(false);
         }
         else {
-            addUser(data).then(() => {
-                navigate('/home');
-            });
+            var res = await addUser(data);
+            if (res.status === 200) {
+                setMessage(true);
+                setMessageTitle("added");
+                console.log("başarılı");
+                setTimeout(() => {
+                    navigate('/home');
+                }, 3000);
+            }
+            else {
+                console.log("başarısız");
+            }
+            setMessage(false);
         }
     }
 
@@ -62,7 +99,11 @@ function AddUserPage() {
             <CustomTextInput hint={"Last Name"} input={lastname} setInputValue={setlastname} ></CustomTextInput>
             <CustomTextInput hint={"Client"} input={client} setInputValue={setclient}></CustomTextInput>
             <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
-            <CustomButton title={"save"} handlePress={handleSave}></CustomButton>
+            <div className='buttons'>
+                <CustomButton title={"go back"} handlePress={() => { navigate('/home') }}></CustomButton>
+                <CustomButton title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "" && authorizedProducts !== "") ? handleSave : () => { }}></CustomButton>
+            </div>
+            <h1>{messageTitle}</h1>
         </div>
 
     );
