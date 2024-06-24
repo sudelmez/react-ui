@@ -54,15 +54,18 @@ function AddUserPage() {
             "createdDate": Date.now
         };
         if (isEdit === true) {
-            var res = await editItem(dataUpdate);
-            if (res.status === 200) {
-                setMessageTitle("Informations updated successfully.");
-                console.log("başarılı");
-                showAlert();
+            if (user.name !== name || user.lastName !== lastname || user.client !== client || user.authorizedProducts !== authorizedProducts) {
+                var res = await editItem(dataUpdate);
+                if (res.status === 200) {
+                    setMessageTitle("Informations updated successfully.");
+                    console.log("başarılı");
+                    showAlert();
+                }
+                else {
+                    console.log("başarısız");
+                }
             }
-            else {
-                console.log("başarısız");
-            }
+            console.log("güncelleme yok");
         }
         else {
             var res = await addUser(data);

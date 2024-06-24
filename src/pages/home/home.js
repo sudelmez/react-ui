@@ -61,7 +61,6 @@ function HomePage() {
                             )}
                         </tr>
                         {users.map((u, index) => {
-                            
                             return <tr>
                                 <td className='detailNav' onClick={() => { access.seeUserDetail === true && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
                                 <td>{u.name}</td>
@@ -78,7 +77,6 @@ function HomePage() {
                                         showAlert();
                                     }}>delete</td>
                                 </td>}
-
                             </tr>
                         })}
                     </table>
