@@ -5,6 +5,7 @@ import CustomButton from '../../components/button/custom-button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/navbar/navbar';
 import UserProvider from '../../hooks/user-provider';
+import MesAlert from '../../components/message_alert/message_alert';
 function AddUserPage() {
     const location = useLocation();
     const { user, isEdit } = location.state || {};
@@ -14,10 +15,17 @@ function AddUserPage() {
     const [authorizedProducts, setauthorizedProducts] = useState(user.authorizedProducts ?? '');
     const navigate = useNavigate();
     const { editItem, addUser } = UserProvider();
-    const [message, setMessage] = useState(false);
     const [butColor, setbutColor] = useState(false);
     const [messageTitle, setMessageTitle] = useState("");
-    const updates = [];
+    const [pop, setPop] = useState(false);
+
+    const showAlert = () => {
+        setPop(true);
+    }
+    const OnClick = () => {
+        navigate('/home');
+        setPop(false);
+    }
 
     const generateList = (products) => {
         if (user.authorizedProducts !== products) {
@@ -46,47 +54,28 @@ function AddUserPage() {
             "createdDate": Date.now
         };
         if (isEdit === true) {
-            if (user.name !== name) {
-                updates.push(" name ");
-            }
-            if (user.lastName !== lastname) {
-                updates.push(" last name ");
-            }
-            if (user.client !== client) {
-                updates.push(" client ");
-            }
-            if (user.authorizedProducts !== authorizedProducts) {
-                updates.push(" authorized products ");
-            }
-            else { setMessageTitle("") }
             var res = await editItem(dataUpdate);
             if (res.status === 200) {
-                setMessage(true);
-                setMessageTitle(updates + "are updated.");
+                setMessageTitle("Informations updated successfully.");
                 console.log("başarılı");
-                setTimeout(() => {
-                    navigate('/home');
-                }, 3000);
+                showAlert();
             }
             else {
                 console.log("başarısız");
             }
-            setMessage(false);
         }
         else {
             var res = await addUser(data);
             if (res.status === 200) {
-                setMessage(true);
-                setMessageTitle("added");
+                setMessageTitle("User added successfully.");
                 console.log("başarılı");
-                setTimeout(() => {
-                    navigate('/home');
-                }, 3000);
+                showAlert();
             }
             else {
-                console.log("başarısız");
+                showAlert();
+                setMessageTitle("An error occured.");
+                console.log("An error occured.");
             }
-            setMessage(false);
         }
     }
 
@@ -100,6 +89,9 @@ function AddUserPage() {
     return (
         <div className='AddUser'>
             <NavBar></NavBar>
+            {pop ? (<>
+                <MesAlert onClicked={OnClick} message={messageTitle} ></MesAlert>
+            </>) : (null)}
             <CustomTextInput hint={"Name"} input={name} setInputValue={setname} ></CustomTextInput>
             <CustomTextInput hint={"Last Name"} input={lastname} setInputValue={setlastname} ></CustomTextInput>
             <CustomTextInput hint={"Client"} input={client} setInputValue={setclient}></CustomTextInput>
@@ -108,9 +100,7 @@ function AddUserPage() {
                 <CustomButton title={"go back"} handlePress={() => { navigate('/home') }}></CustomButton>
                 <CustomButton color={butColor} title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "" && authorizedProducts !== "") ? handleSave : () => { }}></CustomButton>
             </div>
-            <h1>{messageTitle}</h1>
         </div>
-
     );
 }
 
