@@ -55,7 +55,6 @@ function HomePage() {
                             <th>Last Name</th>
                             <th>Products</th>
                             <th>Client</th>
-                            {/* <th>Token</th> */}
                             {access.delUser && (
                                 <th>Settings</th>
                             )}
@@ -70,7 +69,6 @@ function HomePage() {
                                 <td>{u.lastName}</td>
                                 <td>{u.authorizedProducts}</td>
                                 <td>{u.client}</td>
-                                {/* <td>{u.uId}</td> */}
                                 {access.delUser === true && <td>
                                     <td className='delButton' onClick={() => {
                                         navigate('/addUser', { state: { user: u, isEdit: true } })

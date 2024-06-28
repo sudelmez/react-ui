@@ -25,7 +25,7 @@ function Userpage() {
                     return res;
                 }
             }
-        } catch (error) { }
+        } catch (error) { console.log(error); }
     }
     useEffect(() => {
         getPolicies(user.uId);
