@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './user_view.css'
 import NavBar from '../../components/navbar/navbar';
@@ -8,6 +8,28 @@ function Userpage() {
     const location = useLocation();
     const { user } = location.state || {};
     const { role } = useAuth();
+    const [policies, setPolicies] = useState();
+    const getPolicies = async (id) => {
+        try {
+            const response = await fetch('http://localhost:5273/Products/getById?uId=' + id, {
+                method: 'GET', headers: {
+                    "accept": "text/plain"
+                },
+            });
+            console.log(response);
+            if (response.status === 200) {
+                const res = await response.json();
+                if (res) {
+                    setPolicies(res);
+                    console.log(res);
+                    return res;
+                }
+            }
+        } catch (error) { }
+    }
+    useEffect(() => {
+        getPolicies(user.uId);
+    }, []);
     return (
         <div>
             <NavBar></NavBar>

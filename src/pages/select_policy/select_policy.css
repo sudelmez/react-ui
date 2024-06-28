@@ -1,0 +1,39 @@
+.SelectPolicy {}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.box {
+    width: 150px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #000;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: rgb(102, 136, 161);
+}
+
+.box:hover {
+    background-color: #f0f0f0;
+}
+
+.buttonBack {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}

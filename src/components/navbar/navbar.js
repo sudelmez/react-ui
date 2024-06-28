@@ -26,7 +26,7 @@ function NavBar() {
                     <span className="text">{("Log Out")}</span>
                 </h1>
             </div>
-        </div >
+        </div>
     );
 }
 

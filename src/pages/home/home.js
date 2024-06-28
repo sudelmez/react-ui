@@ -55,9 +55,12 @@ function HomePage() {
                             <th>Last Name</th>
                             <th>Products</th>
                             <th>Client</th>
-                            <th>Token</th>
+                            {/* <th>Token</th> */}
                             {access.delUser && (
                                 <th>Settings</th>
+                            )}
+                            {access.addPolicy && (
+                                <th>Policy</th>
                             )}
                         </tr>
                         {users.map((u, index) => {
@@ -67,7 +70,7 @@ function HomePage() {
                                 <td>{u.lastName}</td>
                                 <td>{u.authorizedProducts}</td>
                                 <td>{u.client}</td>
-                                <td>{u.uId}</td>
+                                {/* <td>{u.uId}</td> */}
                                 {access.delUser === true && <td>
                                     <td className='delButton' onClick={() => {
                                         navigate('/addUser', { state: { user: u, isEdit: true } })
@@ -76,6 +79,11 @@ function HomePage() {
                                         setselectedUser(u);
                                         showAlert();
                                     }}>delete</td>
+                                </td>}
+                                {access.addPolicy === true && <td>
+                                    <td className='delButton' onClick={() => {
+                                        navigate('/selectPolicy', { state: { userId: u.uId } })
+                                    }}>add</td>
                                 </td>}
                             </tr>
                         })}

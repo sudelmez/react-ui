@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import HomePage from './pages/home/home';
 import { useAuth } from './hooks/auth-provider';
 import NotFoundView from './pages/not_found/not_found';
+import AddPolicy from './pages/add_policy/add_policy';
+import SelectPolicy from './pages/select_policy/select_policy';
 
 function App() {
   const { user } = useAuth();
@@ -25,6 +27,8 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/user" element={<Userpage />} />
             <Route path="/addUser" element={<AddUserPage />} />
+            <Route path="/addPolicy" element={<AddPolicy />} />
+            <Route path="/selectPolicy" element={<SelectPolicy />} />
             <Route path="/notFound" element={<NotFoundView />} />
             <Route path="*" element={<Navigate to="/notFound" />} />
           </>
