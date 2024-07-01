@@ -10,7 +10,7 @@ function HomePage() {
     const auth = useAuth();
     const navigate = useNavigate();
     const [load, setLoad] = useState(true);
-    const { access, setAccess } = auth;
+    const { access } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
@@ -26,6 +26,7 @@ function HomePage() {
             setUsers(users.filter(user => user.uId !== selectedUser.uId));
         }
         setPop(false);
+        setLoad(!load);
     }
     const onClickNo = () => {
         setPop(false);
@@ -37,7 +38,7 @@ function HomePage() {
             setLoad(false);
             setUsers(usersData);
         }
-    }, [load]);
+    }, [getUsers, load]);
 
     return (
         <div className='Home'>
@@ -68,7 +69,7 @@ function HomePage() {
                                 <td>{u.lastName}</td>
                                 <td>{u.authorizedProducts}</td>
                                 <td>{u.client}</td>
-                                {access.delUser === true && <td>
+                                {access.delUser === true && <td className='rowItems'>
                                     <td className='delButton' onClick={() => {
                                         navigate('/addUser', { state: { user: u, isEdit: true } })
                                     }}>edit</td>
@@ -78,15 +79,11 @@ function HomePage() {
                                     }}>delete</td>
                                 </td>}
                                 {access.addPolicy === true && <td>
-                                    <td className='delButton' onClick={() => {
+                                    <td className='addButton' onClick={() => {
                                         navigate('/selectPolicy', { state: { userId: u.uId } })
                                     }}>add</td>
-                                </td>}
-                            </tr>
-                        })}
-                    </table>
-                </div>
-            </>) : (
+                                </td>}</tr>
+                        })}</table></div></>) : (
                 <h1>Loading...</h1>
             )}
 
