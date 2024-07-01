@@ -38,7 +38,7 @@ function HomePage() {
             setLoad(false);
             setUsers(usersData);
         }
-    }, [getUsers, load]);
+    }, [load]);
 
     return (
         <div className='Home'>
