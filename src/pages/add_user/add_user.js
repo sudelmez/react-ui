@@ -83,12 +83,12 @@ function AddUserPage() {
     }
 
     useEffect(() => {
-        if (name && lastname && client && authorizedProducts) {
+        if (name && lastname && client) {
             setbutColor(true);
         } else {
             setbutColor(false);
         }
-    }, [name, lastname, client, authorizedProducts]);
+    }, [name, lastname, client]);
     return (
         <div className='AddUser'>
             <NavBar></NavBar>
@@ -101,7 +101,7 @@ function AddUserPage() {
             <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
             <div className='buttons'>
                 <CustomButton title={"go back"} handlePress={() => { navigate('/home') }}></CustomButton>
-                <CustomButton color={butColor} title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "" && authorizedProducts !== "") ? handleSave : () => { }}></CustomButton>
+                <CustomButton color={butColor} title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "") ? handleSave : () => { }}></CustomButton>
             </div>
         </div>
     );

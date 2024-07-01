@@ -90,3 +90,7 @@ td {
     align-items: center;
     justify-content: center;
 }
+
+.addButton:hover {
+    box-shadow: 1px 1px 20px 0px rgb(102, 136, 161);
+}
