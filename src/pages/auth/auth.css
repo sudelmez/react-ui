@@ -34,3 +34,17 @@
 .navbar-app {
   display: none;
 }
+
+.rowitems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.toggle-password {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}

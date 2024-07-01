@@ -13,6 +13,7 @@ function AuthPage() {
     const navigate = useNavigate();
     const [error, setError] = useState(false);
     const { loggedIn } = useAuth();
+    const [visible, setVisible] = useState(true);
     const handlePress = async () => {
         try {
             await auth.loginAction({ "email": mail, "password": password });
@@ -25,6 +26,9 @@ function AuthPage() {
             console.log(err);
         }
     }
+    const seePassword = () => {
+        setVisible(!visible);
+    }
     return (
         <div className='Auth'>
             <div className="Auth-left">
@@ -32,7 +36,11 @@ function AuthPage() {
             <div className='Auth-right'>
                 <h1>Welcome!</h1>
                 <CustomTextInput hint={'Email'} setInputValue={setmail} input={mail}></CustomTextInput>
-                <CustomTextInput hint={'Password'} setInputValue={setpassword} input={password}></CustomTextInput>
+                <div className='rowitems'>
+                    <CustomTextInput isVisible={visible} hint={'Password'} setInputValue={setpassword} input={password}></CustomTextInput>
+                    <button className='toggle-password' onClick={seePassword}>
+                        {visible ? 'Show' : 'Hide'}
+                    </button>                </div>
                 <CustomButton title={'Login'} handlePress={handlePress}></CustomButton>
                 {error ? (<>
                     <h2>Wrong User!</h2>
