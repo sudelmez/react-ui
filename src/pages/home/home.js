@@ -9,7 +9,7 @@ import UserProvider from '../../hooks/user-provider';
 function HomePage() {
     const auth = useAuth();
     const navigate = useNavigate();
-    const [load, setLoad] = useState(false);
+    const [load, setLoad] = useState(true);
     const { access, setAccess } = auth;
     const [users, setUsers] = useState([]);
     const [pop, setPop] = useState(false);
@@ -31,13 +31,12 @@ function HomePage() {
         setPop(false);
     }
     useEffect(() => {
-        setLoad(true);
         fetchData();
         async function fetchData() {
             const usersData = await getUsers();
+            setLoad(false);
             setUsers(usersData);
         }
-        setLoad(false);
     }, [load]);
 
     return (

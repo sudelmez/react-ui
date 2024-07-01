@@ -9,6 +9,7 @@ function Userpage() {
     const { user } = location.state || {};
     const { role } = useAuth();
     const [policies, setPolicies] = useState();
+    
     const getPolicies = async (id) => {
         try {
             const response = await fetch('http://localhost:5273/Products/getById?uId=' + id, {

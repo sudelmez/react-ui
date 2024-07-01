@@ -11,11 +11,11 @@ import AddPolicy from './pages/add_policy/add_policy';
 import SelectPolicy from './pages/select_policy/select_policy';
 
 function App() {
-  const { user } = useAuth();
+  const { loggedIn } = useAuth();
   return (
     <Router>
       <Routes>
-        {!user ? (
+        {loggedIn === false ? (
           <>
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/notFound" element={<NotFoundView />} />

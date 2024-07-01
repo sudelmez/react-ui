@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import './auth.css';
 import CustomTextInput from '../../components/text_input/text_input';
 import CustomButton from '../../components/button/custom-button';
-import NavBar from '../../components/navbar/navbar';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth-provider';
 
@@ -13,16 +12,15 @@ function AuthPage() {
     const [password, setpassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-    const { user, role, access } = useAuth();
+    const { loggedIn } = useAuth();
     const handlePress = async () => {
         try {
-            const user = await auth.loginAction({ "email": mail, "password": password });
-            if (user != null) {
+            await auth.loginAction({ "email": mail, "password": password });
+            console.log(loggedIn);
+            if (loggedIn === false) {
                 setError(false);
                 navigate('/home');
             }
-            else { setError(true); }
-
         } catch (err) {
             console.log(err);
         }
@@ -30,8 +28,7 @@ function AuthPage() {
     return (
         <div className='Auth'>
             <div className="Auth-left">
-                <img className='image' alt='' src={wall} />
-            </div>
+                <img className='image' alt='' src={wall} /> </div>
             <div className='Auth-right'>
                 <h1>Welcome!</h1>
                 <CustomTextInput hint={'Email'} setInputValue={setmail} input={mail}></CustomTextInput>
@@ -44,7 +41,6 @@ function AuthPage() {
                 )}
             </div>
         </div>
-
     );
 }
 
