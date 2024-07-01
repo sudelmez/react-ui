@@ -20,12 +20,12 @@ function HomePage() {
         setPop(true);
     }
     const onClickYes = async () => {
+        setPop(false);
         setLoad(!load);
         const success = await delItem(selectedUser);
         if (success) {
             setUsers(users.filter(user => user.uId !== selectedUser.uId));
         }
-        setPop(false);
         setLoad(!load);
     }
     const onClickNo = () => {
