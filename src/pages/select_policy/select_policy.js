@@ -7,10 +7,10 @@ import CustomButton from '../../components/button/custom-button';
 function SelectPolicy() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId } = location.state || {};
+    const { userId, userInfo } = location.state || {};
 
     const handleBoxClick = (product, no) => {
-        navigate('/addPolicy', { state: { product: product, no: no, userId: userId } });
+        navigate('/addPolicy', { state: { userInfo: userInfo, product: product, no: no, userId: userId, noList: null } });
     }
 
     return (

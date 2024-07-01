@@ -29,7 +29,7 @@ function AddUserPage() {
 
     const generateList = (products) => {
         if (user.authorizedProducts !== products) {
-            return products.split(',');
+            return products.split(',').map(product => product.trim());
         }
         return products;
     }
@@ -69,9 +69,12 @@ function AddUserPage() {
         }
         else {
             var res = await addUser(data);
-            if (res.status === 200) {
+            if (res !== null) {
                 setMessageTitle("User added successfully.");
                 console.log("başarılı");
+                if (authorizedProducts !== "") {
+                    navigate('/addPolicy', { state: { userId: res.uId, noList: generateList(authorizedProducts) } });
+                }
                 showAlert();
             }
             else {
@@ -98,7 +101,7 @@ function AddUserPage() {
             <CustomTextInput hint={"Name"} input={name} setInputValue={setname} ></CustomTextInput>
             <CustomTextInput hint={"Last Name"} input={lastname} setInputValue={setlastname} ></CustomTextInput>
             <CustomTextInput hint={"Client"} input={client} setInputValue={setclient}></CustomTextInput>
-            <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>
+            {!isEdit && <CustomTextInput hint={"Authorized Products (with commas)"} input={authorizedProducts} setInputValue={setauthorizedProducts}></CustomTextInput>}
             <div className='buttons'>
                 <CustomButton title={"go back"} handlePress={() => { navigate('/home') }}></CustomButton>
                 <CustomButton color={butColor} title={"save"} handlePress={(name !== "" && lastname !== "" && client !== "") ? handleSave : () => { }}></CustomButton>

@@ -40,8 +40,9 @@ const UserProvider = () => {
                     "Content-Type": "application/json"
                 }, body: JSON.stringify(user)
             });
-            if (response.status === 200) {
-                return response;
+            if (response !== null) {
+                var res = await response.json();
+                return res;
             }
         } catch (error) {
             console.log(error);
