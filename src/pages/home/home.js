@@ -64,7 +64,7 @@ function HomePage() {
                             <td className='detailNav' onClick={() => { access.seeUserDetail === true && navigate('/user', { state: { user: u } }) }}>{index + 1}</td>
                             <td>{u.name}</td>
                             <td>{u.lastName}</td>
-                            <td>{u.authorizedProducts.join(', ')}</td>
+                            <td>{u.authorizedProducts.join(' ')}</td>
                             <td>{u.client}</td>
                             {access.delUser === true && <td className='rowItems'>
                                 <td className='delButton' onClick={() => {

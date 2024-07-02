@@ -47,7 +47,7 @@ function AddPolicy() {
         if (noList === null) {
             var dataUpdate = {
                 "id": {},
-                "uId": userInfo.uId ?? "",
+                "uId": userInfo.uId,
                 "name": userInfo.name,
                 "lastName": userInfo.lastName,
                 "client": userInfo.client,

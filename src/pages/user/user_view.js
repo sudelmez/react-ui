@@ -8,32 +8,41 @@ function Userpage() {
     const location = useLocation();
     const { user } = location.state || {};
     const { role } = useAuth();
-    const [policies, setPolicies] = useState();
-    const [load, setLoad] = useState(false);
+    const [policies, setPolicies] = useState([]);
+    const [load, setLoad] = useState(true);
+    const [value, setValue] = useState(0);
 
     const getPolicies = async (id) => {
-        setLoad(true);
         try {
             const response = await fetch('http://localhost:5273/Products/getById?uId=' + id, {
                 method: 'GET', headers: {
                     "accept": "text/plain"
                 },
             });
+            console.log("response");
+            console.log(response);
             if (response.status === 200) {
+                setValue(1);
                 const res = await response.json();
                 if (res) {
                     setPolicies(res);
                     console.log(res);
-                    setLoad(false);
                     return res;
                 }
-
             }
         } catch (error) { console.log(error); }
     }
     useEffect(() => {
-        // getPolicies(user.uId);
-    }, []);
+        if (value !== 1) {
+            fetchData();
+            async function fetchData() {
+                getPolicies(user.uId);
+                console.log("policies");
+                console.log(policies);
+            }
+        }
+        setLoad(false);
+    }, [value]);
     return (
         <div>
             <NavBar></NavBar>
@@ -52,34 +61,27 @@ function Userpage() {
                             <th className="headings">Client</th>
                             <td>{user.client}</td>
                         </tr>)}
-                        {/* {user.authorizedProducts && (
-                            <tr>
-                                <th className="headings">Authorized Products</th>
-                                <td>{user.authorizedProducts.join(', ')}</td>
-                            </tr>
-                        )} */}
                         {user.roleId && role && (
                             <tr>
                                 <th className="headings">Role</th>
                                 <td>{role.roleName}</td>
                             </tr>
                         )}
-                        {/* {policies !== null && (
-                            <>
-                                {policies.map((policy, index) => (
-                                    <tr key={index}>
-                                        <th className="headings">Insurance {index + 1}</th>
-                                        <td>
-                                            <div>Product No: {policy.productNo}</div>
-                                            <div>Policy No: {policy.policyNo}</div>
-                                            <div>Premium: {policy.premium}</div>
-                                            <div>Insured: {policy.insured}</div>
-                                            <div>Plate: {policy.plate}</div>
-                                        </td>
-                                    </tr>
-                                ))}
+                        {policies !== null && (
+                            <> {policies.map((policy, index) => (
+                                <tr key={index}>
+                                    <th className="headings">Insurance {index + 1}</th>
+                                    <td>
+                                        <div>Product No: {policy.productNo}</div>
+                                        <div>Policy No: {policy.policyNo}</div>
+                                        <div>Premium: {policy.premium}</div>
+                                        <div>Insured: {policy.insured}</div>
+                                        <div>Plate: {policy.plate}</div>
+                                    </td>
+                                </tr>
+                            ))}
                             </>
-                        )} */}
+                        )}
                     </table>
                 </div>
             </>) : (

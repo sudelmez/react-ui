@@ -27,6 +27,7 @@ function AuthPage() {
     const seePassword = () => {
         setVisible(!visible);
     }
+    
     return (
         <div className='Auth'>
             <div className="Auth-left">
