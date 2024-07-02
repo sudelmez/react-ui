@@ -12,13 +12,11 @@ function AuthPage() {
     const [password, setpassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-    const { loggedIn } = useAuth();
     const [visible, setVisible] = useState(true);
     const handlePress = async () => {
         try {
-            await auth.loginAction({ "email": mail, "password": password });
-            console.log(loggedIn);
-            if (loggedIn === false) {
+            var res = await auth.loginAction({ "email": mail, "password": password });
+            if (res !== null) {
                 setError(false);
                 navigate('/home');
             }
