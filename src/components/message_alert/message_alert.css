@@ -1,0 +1,27 @@
+.Alert {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    z-index: 1;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25%;
+    width: 50%;
+    position: absolute;
+    flex: 1;
+}
+
+
+.text {
+    margin-top: 10%;
+}
+
+.button {
+    margin: 10%;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
+}
